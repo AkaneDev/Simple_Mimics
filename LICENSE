@@ -1,67 +1,148 @@
-SimpleMimics Usage Permissions
+SimpleMimics Usage Licence
 
 Copyright (c) 2026 AkaneDev
 
-All Rights Reserved.
+This licence applies to SimpleMimics and all official distributions created by
+AkaneDev.
 
-Permission is granted to use this mod in the following ways:
+Permission is granted to use, modify, and create forks of SimpleMimics under
+the conditions listed below.
 
+Usage Permissions
+
+You may use SimpleMimics for:
+
+- Personal use
 - Modpacks
 - Videos
 - Streams
 - VODs
+- Server usage
+- Educational purposes
+
+Credit Requirements
+
+All public uses of SimpleMimics must provide credit to AkaneDev.
+
+Credit may be provided in any reasonable way, including but not limited to:
+
+- Linking the official SimpleMimics project page
+- Mentioning "SimpleMimics by AkaneDev"
+- Listing AkaneDev as the original creator
+- Including attribution in documentation or descriptions
 
 Videos
 
-For videos, credit to AkaneDev is required. Credit may be provided in any
-reasonable way, including but not limited to:
+For uploaded videos, credit to AkaneDev is required.
+
+Acceptable credit includes:
 
 - A pinned comment
-- A mention in the video
-- A link to the mod page in the description
-- Mentioning the mod name and author in the description
+- A mention in the video description
+- A link to the official SimpleMimics project page
+- Mentioning the mod name and author
 
 Streams
 
-For livestreams, credit to AkaneDev is required. Credit may be provided in
-any reasonable way, including but not limited to:
+For livestreams, credit to AkaneDev is required.
+
+Acceptable credit includes:
 
 - Mentioning the mod during the stream
-- Including the mod name and author in the stream description
-- Linking the mod page in the stream description
-- Using a chat command or other chat-based credit system
+- Including SimpleMimics and AkaneDev in the stream description
+- Linking the official project page
+- Using a chat command or other attribution method
 
 VODs
 
-VODs are treated differently from live streams and videos. Credit is not
-required for VODs, but it is greatly appreciated.
+VODs created from livestreams are treated separately.
 
-Examples of appreciated credit include:
-
-- A link to the mod page in the description
-- Mentioning the mod name and author
-- Adding the mod to a list of mods used
+Additional credit is appreciated but not required if the original livestream
+already provided credit.
 
 Modpacks
 
-If this mod is included in a modpack, the mod must be listed in the
-modpack description with credit given to AkaneDev.
+SimpleMimics may be included in modpacks.
 
-Restrictions
+Modpacks must provide attribution by:
+
+- Listing SimpleMimics in the mod list
+- Listing AkaneDev as the author
+- Linking to the official project page where possible
+
+Forks and Modifications
+
+You are allowed to create forks and modified versions of SimpleMimics.
+
+Forks must:
+
+- Credit AkaneDev as the original creator
+- Include a link to the original SimpleMimics project
+- Clearly state that the project is a fork or modification
+- Describe the changes made from the original project
+
+Forks may be used for:
+
+- Personal modifications
+- Compatibility changes
+- Bug fixes
+- Experimental features
+- Community improvements
+- Learning and educational purposes
+
+Competing Projects
+
+You may not create or distribute a fork that:
+
+- Attempts to replace the official SimpleMimics project
+- Uses the SimpleMimics name or branding without permission
+- Misleads users into believing it is the official project
+- Is presented as the primary or official continuation of SimpleMimics
+- Removes attribution to AkaneDev
+
+The official SimpleMimics project remains controlled and maintained by
+AkaneDev.
+
+Redistribution
+
+You may redistribute modified versions of SimpleMimics only if:
+
+- Proper credit is provided
+- The project is clearly identified as modified/forked
+- It does not compete with or impersonate the official SimpleMimics project
 
 You may not:
 
-- Redistribute this mod or modified versions of this mod without permission.
-- Reupload this mod to other platforms without permission.
-- Use the source code, assets, or systems from this mod in other projects
-  without permission.
+- Reupload unchanged copies of SimpleMimics
+- Remove copyright notices
+- Claim ownership of SimpleMimics
+- Redistribute SimpleMimics without attribution
 
-Exceptions may be granted for educational purposes, such as learning,
-research, code review, or personal study. Educational use does not include
-creating, distributing, or publishing derivative projects based on this mod.
+Source Code
+
+The source code is publicly available for transparency, learning, and
+community development.
+
+Viewing, studying, and modifying the source code is permitted under this
+licence.
+
+Use of the source code in unrelated projects requires permission unless the
+project is a clearly credited fork or modification of SimpleMimics.
+
+Assets
+
+Assets created specifically for SimpleMimics remain protected under this
+licence.
+
+Using SimpleMimics assets outside of SimpleMimics or approved forks requires
+permission from AkaneDev.
+
+Warranty Disclaimer
 
 This software is provided "AS IS", without warranty of any kind, express or
-implied. In no event shall the authors or copyright holders be liable for
-any claim, damages, or other liability arising from the use of this software.
+implied.
+
+In no event shall the authors or copyright holders be liable for any claim,
+damages, or other liability arising from the use of this software.
 
 Thank you for supporting SimpleMimics.

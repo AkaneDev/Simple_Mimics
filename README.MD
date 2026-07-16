@@ -11,6 +11,11 @@ I was bored and created this just to mess with my friends. After making it, I th
 
 ---
 
+## Roadmap
+- Multiloader version to support neoforge, forge and fabric
+
+---
+
 ## How can I use this mod?
 
 You are allowed to use this mod in:

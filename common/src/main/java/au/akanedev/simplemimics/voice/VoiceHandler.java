@@ -1,5 +1,6 @@
 package au.akanedev.simplemimics.voice;
 
+import au.akanedev.simplemimics.Constants;
 import au.akanedev.simplemimics.entity.MimicEntity;
 import de.maxhenkel.voicechat.api.VoicechatConnection;
 import de.maxhenkel.voicechat.api.VoicechatServerApi;
@@ -76,7 +77,7 @@ public class VoiceHandler {
     public void init(VoicechatServerApi api) {
 
         this.api = api;
-
+        Constants.LOG.info("Initializing Voicechat");
 
         voiceScheduler.scheduleAtFixedRate(
                 this::tickPlayback,

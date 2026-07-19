@@ -62,7 +62,6 @@ public class SimpleMimicsVoicePlugin implements VoicechatPlugin {
         if (packet == null)
             return;
 
-
         VoiceHandler.getInstance()
                 .onAudioPacket(player, packet);
     }

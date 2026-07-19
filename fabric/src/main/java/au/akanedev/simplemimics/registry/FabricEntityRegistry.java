@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 
@@ -36,6 +37,12 @@ public class FabricEntityRegistry implements PlatformEntityRegistry {
                             .build()
             );
 
+    public static void registerAttributes() {
+        FabricDefaultAttributeRegistry.register(
+                MIMIC,
+                MimicEntity.createAttributes()
+        );
+    }
 
     @Override
     public EntityType<MimicEntity> mimic() {

@@ -3,18 +3,15 @@ package au.akanedev.simplemimics.entity;
 import au.akanedev.simplemimics.voice.VoiceHandler;
 import de.maxhenkel.voicechat.api.VoicechatServerApi;
 import de.maxhenkel.voicechat.api.audiochannel.EntityAudioChannel;
-import de.maxhenkel.voicechat.api.audiochannel.LocationalAudioChannel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.*;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
 
@@ -44,13 +41,14 @@ public class MimicEntity extends PathfinderMob {
     // TARGET RESOLVE
     // =========================
 
-    public Player getTargetA() {
-        return resolvePlayer(getTargetAUUID());
+    public ServerPlayer getTargetA() {
+        return (ServerPlayer) resolvePlayer(getTargetAUUID());
     }
 
-    public Player getTargetB() {
-        return resolvePlayer(getTargetBUUID());
+    public ServerPlayer getTargetB() {
+        return (ServerPlayer) resolvePlayer(getTargetBUUID());
     }
+
 
     private Player resolvePlayer(String uuidStr) {
         if (uuidStr == null || uuidStr.isEmpty()) return null;

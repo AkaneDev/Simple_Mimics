@@ -2,9 +2,12 @@ package au.akanedev.simplemimics.voice;
 
 import au.akanedev.simplemimics.Constants;
 import au.akanedev.simplemimics.entity.MimicEntity;
+import de.maxhenkel.voicechat.api.Position;
 import de.maxhenkel.voicechat.api.VoicechatConnection;
 import de.maxhenkel.voicechat.api.VoicechatServerApi;
 import de.maxhenkel.voicechat.api.audiochannel.EntityAudioChannel;
+import de.maxhenkel.voicechat.api.packets.EntitySoundPacket;
+import de.maxhenkel.voicechat.api.packets.LocationalSoundPacket;
 import de.maxhenkel.voicechat.api.packets.MicrophonePacket;
 import de.maxhenkel.voicechat.api.packets.StaticSoundPacket;
 import net.minecraft.server.level.ServerPlayer;
@@ -57,7 +60,6 @@ public class VoiceHandler {
 
     private final Map<UUID, PlayerPlayback> playerQueues =
             new ConcurrentHashMap<>();
-
 
 
 

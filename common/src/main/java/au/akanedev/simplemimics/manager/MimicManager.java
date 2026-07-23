@@ -1,6 +1,8 @@
 package au.akanedev.simplemimics.manager;
 
 import au.akanedev.simplemimics.Constants;
+import au.akanedev.simplemimics.api.events.MimicEvents;
+import au.akanedev.simplemimics.api.events.callback.MimicMovementCallback;
 import au.akanedev.simplemimics.entity.MimicEntity;
 import au.akanedev.simplemimics.registry.ModEntities;
 import au.akanedev.simplemimics.voice.VoiceHandler;
@@ -14,6 +16,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Manages mimic spawning, AI behavior, and lifecycle
@@ -88,8 +91,24 @@ public class MimicManager {
 
                 // Check if Target A is still online
                 ServerPlayer targetA = (ServerPlayer) mimic.getTargetA();
-                if (targetA == null || !targetA.isAlive()) {
+                if (targetA == null) {
                     // Target A gone - remove mimic
+                    mimicsToRemove.add(mimicId);
+                    continue;
+                }
+
+                if (targetA.isSpectator()) {
+                    mimicsToRemove.add(mimicId);
+                    continue;
+                }
+
+                ServerPlayer targetB = (ServerPlayer) mimic.getTargetB();
+                if (targetB == null) {
+                    mimicsToRemove.add(mimicId);
+                    continue;
+                }
+
+                if (targetB.isSpectator()) {
                     mimicsToRemove.add(mimicId);
                     continue;
                 }
@@ -149,6 +168,8 @@ public class MimicManager {
             return;
         }
 
+        MimicEvents.ACTION.invoke(event -> event.onAction(targetA, mimic));
+
         // =========================
         // DISTANCE CHECK
         // =========================
@@ -163,7 +184,16 @@ public class MimicManager {
 
             // Try normal navigation first
             if (mimic.canPathTo(targetB)) {
-
+                ServerPlayer finalTargetB = targetB;
+                MimicEvents.MOVEMENT.invoke(callback ->
+                        callback.onMovement(
+                                MimicMovementCallback.MovementType.ADVANCE,
+                                finalTargetB,
+                                mimic,
+                                mimic.blockPosition(),
+                                new BlockPos((int) finalTargetB.position().x(), (int) finalTargetB.position().y(), (int) finalTargetB.position().z())
+                        )
+                );
                 mimic.moveToPlayer(targetB);
 
             } else {
@@ -176,7 +206,16 @@ public class MimicManager {
                 );
 
                 if (groundPos != null && mimic.canPathTo(groundPos)) {
-
+                    ServerPlayer finalTargetB2 = targetB;
+                    MimicEvents.MOVEMENT.invoke(callback ->
+                            callback.onMovement(
+                                    MimicMovementCallback.MovementType.ADVANCE,
+                                    finalTargetB2,
+                                    mimic,
+                                    mimic.blockPosition(),
+                                    new BlockPos((int) finalTargetB2.position().x(), (int) finalTargetB2.position().y(), (int) finalTargetB2.position().z())
+                            )
+                    );
                     mimic.moveToPos(groundPos);
 
                 } else {
@@ -188,6 +227,16 @@ public class MimicManager {
                             safe.getY() > level.getMinBuildHeight()) {
                         safe = safe.below();
                     }
+                    ServerPlayer finalTargetB3 = targetB;
+                    MimicEvents.MOVEMENT.invoke(callback ->
+                            callback.onMovement(
+                                    MimicMovementCallback.MovementType.TELEPORT,
+                                    finalTargetB3,
+                                    mimic,
+                                    mimic.blockPosition(),
+                                    new BlockPos((int) finalTargetB3.position().x(), (int) finalTargetB3.position().y(), (int) finalTargetB3.position().z())
+                            )
+                    );
 
                     mimic.teleportTo(
                             safe.getX() + 0.5,
@@ -207,17 +256,47 @@ public class MimicManager {
                     6.0
             );
 
+
             if (retreat != null && mimic.canPathTo(retreat)) {
+                ServerPlayer finalTargetB4 = targetB;
+                MimicEvents.MOVEMENT.invoke(callback ->
+                        callback.onMovement(
+                                MimicMovementCallback.MovementType.RETREAT,
+                                finalTargetB4,
+                                mimic,
+                                mimic.blockPosition(),
+                                new BlockPos((int) finalTargetB4.position().x(), (int) finalTargetB4.position().y(), (int) finalTargetB4.position().z())
+                        )
+                );
                 mimic.moveToPos(retreat);
             } else {
                 // fallback: reposition around target A instead of teleport chaos
                 mimic.moveToPlayer(targetA);
+                MimicEvents.MOVEMENT.invoke(callback ->
+                        callback.onMovement(
+                                MimicMovementCallback.MovementType.RETREAT,
+                                targetA,
+                                mimic,
+                                mimic.blockPosition(),
+                                new BlockPos((int) targetA.position().x(), (int) targetA.position().y(), (int) targetA.position().z())
+                        )
+                );
             }
         }
 
         else {
             // In correct range → idle
             mimic.stopMoving();
+            ServerPlayer finalTargetB5 = targetB;
+            MimicEvents.MOVEMENT.invoke(callback ->
+                    callback.onMovement(
+                            MimicMovementCallback.MovementType.STOP,
+                            finalTargetB5,
+                            mimic,
+                            mimic.blockPosition(),
+                            new BlockPos(0,0,0)
+                    )
+            );
         }
 
         // =========================
@@ -239,8 +318,30 @@ public class MimicManager {
             if (newTarget != null &&
                     !newTarget.getUUID().equals(targetB.getUUID())) {
 
-                mimic.setTargetBUUID(newTarget.getUUID().toString());
+                AtomicBoolean allowed = new AtomicBoolean(true);
+
+                ServerPlayer finalTargetB1 = targetB;
+                MimicEvents.TARGET_CHANGED.invoke(event -> {
+                    if (!event.onTargetChanged(
+                            mimic,
+                            finalTargetB1,
+                            newTarget
+                )) {
+                    allowed.set(false);
+                }});
+
+
+                if (allowed.get()) {
+                    mimic.setTargetBUUID(
+                            newTarget.getUUID().toString()
+                    );
+                }
             }
+        }
+
+        if ((boolean) ConfigRegistry.get("ENABLE_ADDON_JUMPSCARES").get()) {
+            ServerPlayer finalTargetB6 = targetB;
+            MimicEvents.JUMPSCARE_CALLBACK.invoke(event -> event.onJumpscare(mimic, finalTargetB6));
         }
     }
 
@@ -253,7 +354,24 @@ public class MimicManager {
         VoiceHandler voiceHandler = VoiceHandler.getInstance();
 
         // NO clip retrieval anymore
-        voiceHandler.replayVoice(mimic, targetA.getUUID());
+        AtomicBoolean allowed = new AtomicBoolean(true);
+
+        MimicEvents.VOICE.invoke(event -> {
+            if (!event.onVoice(
+                    mimic,
+                    targetA,
+                    targetB
+            )) {
+                allowed.set(false);
+            }
+        });
+
+        if (allowed.get()) {
+            voiceHandler.replayVoice(
+                    mimic,
+                    targetA.getUUID()
+            );
+        }
     }
 
     /**
@@ -354,7 +472,12 @@ public class MimicManager {
         spawnTimes.put(mimic.getUUID(), System.currentTimeMillis());
 
         Constants.LOG.info("Spawned mimic for player " + targetPlayer.getGameProfile().getName());
-
+        MimicEvents.CREATED.invoke(event ->
+                        event.onCreated(
+                                mimic,
+                                targetPlayer
+                        )
+                );
         return mimic;
     }
 
@@ -366,6 +489,9 @@ public class MimicManager {
         spawnTimes.remove(mimicId);
 
         if (mimic != null && mimic.isAlive()) {
+            MimicEvents.REMOVED.invoke(event ->
+                            event.onRemoved(mimic)
+                    );
             mimic.discard();
             Constants.LOG.info("Removed mimic " + mimicId);
         }

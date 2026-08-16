@@ -2,6 +2,7 @@ package au.akanedev.simplemimics;
 
 
 import au.akanedev.simplemimics.events.NeoForgeVoiceChatEventHandler;
+import au.akanedev.simplemimics.manager.ChatManager;
 import au.akanedev.simplemimics.registry.ModEntities;
 import au.akanedev.simplemimics.registry.NeoForgeAttributes;
 import au.akanedev.simplemimics.registry.NeoForgeEntityRegistry;
@@ -11,7 +12,7 @@ import net.neoforged.neoforge.common.NeoForge;
 
 @Mod(Constants.MOD_ID)
 public class SimpleMimicsNeoForge {
-
+    public static ChatManager chatManager;
     public SimpleMimicsNeoForge(IEventBus eventBus) {
 
         // This method is invoked by the NeoForge mod loader when it is ready
@@ -28,6 +29,6 @@ public class SimpleMimicsNeoForge {
         ModEntities.init(
                 new NeoForgeEntityRegistry()
         );
-
+        SimpleMimicsNeoForge.chatManager = ChatManager.getInstance();
     }
 }

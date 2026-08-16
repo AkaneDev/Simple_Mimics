@@ -30,6 +30,7 @@ public class MimicEntity extends PathfinderMob {
     private EntityAudioChannel voiceChannel;
     private boolean synced = false;
     private boolean mimicAddedToWorld = false;
+    private int currentmovementtickcounter = 0;
 
     public MimicEntity(net.minecraft.world.entity.EntityType<? extends PathfinderMob> type, Level level) {
         super(type, level);
@@ -194,7 +195,7 @@ public class MimicEntity extends PathfinderMob {
 
     public static AttributeSupplier.Builder createAttributes() {
         return PathfinderMob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 20.0)
+                .add(Attributes.MAX_HEALTH, 64.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.28)
                 .add(Attributes.FOLLOW_RANGE, 64.0);
     }
@@ -287,5 +288,13 @@ public class MimicEntity extends PathfinderMob {
         Path path = this.getNavigation().createPath(player, 0);
 
         return path != null && path.canReach();
+    }
+
+    public int getCurrentmovementtickcounter() {
+        return currentmovementtickcounter;
+    }
+
+    public void setCurrentmovementtickcounter(int currentmovementtickcounter) {
+        this.currentmovementtickcounter = currentmovementtickcounter;
     }
 }

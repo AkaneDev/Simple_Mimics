@@ -1,5 +1,6 @@
 package au.akanedev.simplemimics;
 
+import au.akanedev.simplemimics.manager.ChatManager;
 import au.akanedev.simplemimics.manager.MimicManager;
 import au.akanedev.simplemimics.registry.FabricEntityRegistry;
 import au.akanedev.simplemimics.registry.ModEntities;
@@ -8,7 +9,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 
 public class SimpleMimicsFabric implements ModInitializer {
-    
+    public static ChatManager chatManager;
     @Override
     public void onInitialize() {
         
@@ -31,5 +32,6 @@ public class SimpleMimicsFabric implements ModInitializer {
             MimicManager.getInstance().onServerTick(server);
             VoiceHandler.getInstance().tick();
         });
+        chatManager = ChatManager.getInstance();
     }
 }

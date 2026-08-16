@@ -22,3 +22,8 @@ build
 eclipse
 run
 runs
+
+*.jar
+
+.gitignore
+.gitattributes

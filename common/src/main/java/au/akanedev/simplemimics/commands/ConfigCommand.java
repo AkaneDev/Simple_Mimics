@@ -46,6 +46,7 @@ public class ConfigCommand {
                                                             ConfigRegistry.get(configName);
 
 
+
                                                     if (config == null) {
                                                         context.getSource().sendFailure(
                                                                 net.minecraft.network.chat.Component.literal(
@@ -55,17 +56,19 @@ public class ConfigCommand {
 
                                                         return 0;
                                                     }
-
+                                                    config.setCtx(context);
 
                                                     try {
                                                         config.setFromString(value);
+                                                        if (!config.isComment()) {
+                                                            context.getSource().sendSuccess(
+                                                                    () -> net.minecraft.network.chat.Component.literal(
+                                                                            "Set " + configName + " to " + value
+                                                                    ),
+                                                                    true
+                                                            );
+                                                        }
 
-                                                        context.getSource().sendSuccess(
-                                                                () -> net.minecraft.network.chat.Component.literal(
-                                                                        "Set " + configName + " to " + value
-                                                                ),
-                                                                true
-                                                        );
 
                                                     } catch (Exception e) {
 

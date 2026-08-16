@@ -1,6 +1,7 @@
 package au.akanedev.simplemimics;
 
 import au.akanedev.simplemimics.eventhandlers.ForgeAttEventHandler;
+import au.akanedev.simplemimics.manager.ChatManager;
 import au.akanedev.simplemimics.registry.ForgeEntityRegistry;
 import au.akanedev.simplemimics.registry.ModEntities;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -9,7 +10,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(Constants.MOD_ID)
 public class SimpleMimicsForge {
-
+    public static ChatManager chatManager;
     public SimpleMimicsForge(FMLJavaModLoadingContext context) {
 
         // This method is invoked by the Forge mod loader when it is ready
@@ -27,5 +28,6 @@ public class SimpleMimicsForge {
         ModEntities.init(
                 new ForgeEntityRegistry()
         );
+        chatManager = ChatManager.getInstance();
     }
 }

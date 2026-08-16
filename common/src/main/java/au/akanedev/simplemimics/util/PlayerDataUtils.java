@@ -3,6 +3,8 @@ package au.akanedev.simplemimics.util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
@@ -14,6 +16,7 @@ import java.util.UUID;
  * Utilities for working with player data (skins, etc.)
  */
 public class PlayerDataUtils {
+    private static MinecraftServer server;
 
     private PlayerDataUtils() {}
 
@@ -37,6 +40,11 @@ public class PlayerDataUtils {
         }
         
         return null;
+    }
+
+
+    public static void setServerRef(MinecraftServer ref) {
+        server = ref;
     }
 
     /**
@@ -92,6 +100,12 @@ public class PlayerDataUtils {
         return tag;
     }
 
+    public static void sendGlobalMessage(String message) {
+        server.getPlayerList().getPlayers().forEach(player -> {
+            player.sendSystemMessage(Component.literal(message));
+        });
+    }
+
     /**
      * Load mimic data from NBT
      */
@@ -123,5 +137,17 @@ public class PlayerDataUtils {
         }
 
         return result;
+    }
+
+    /**
+     * Get Player from UUID
+     */
+    public static Player getPlayerFromUUID(UUID uuid) {
+        if (uuid == null) return null;
+        return server.getPlayerList().getPlayer(uuid);
+    }
+
+    public static MinecraftServer getServer() {
+        return server;
     }
 }

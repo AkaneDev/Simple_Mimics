@@ -20,5 +20,6 @@ public class ForgeModCommands {
         ForceMimicCommand.register(dispatcher);
         ConfigCommand.register(dispatcher);
         VoiceClipsCommand.register(dispatcher);
+        ChatManagerCommand.register(dispatcher);
     }
 }

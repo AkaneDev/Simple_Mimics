@@ -1,5 +1,6 @@
 package au.akanedev.simplemimics;
 
+import au.akanedev.simplemimics.commands.ChatManagerCommand;
 import au.akanedev.simplemimics.commands.ConfigCommand;
 import au.akanedev.simplemimics.commands.ForceMimicCommand;
 import au.akanedev.simplemimics.voice.VoiceClipsCommand;
@@ -20,5 +21,6 @@ public class NeoForgeModCommands {
         ForceMimicCommand.register(dispatcher);
         ConfigCommand.register(dispatcher);
         VoiceClipsCommand.register(dispatcher);
+        ChatManagerCommand.register(dispatcher);
     }
 }

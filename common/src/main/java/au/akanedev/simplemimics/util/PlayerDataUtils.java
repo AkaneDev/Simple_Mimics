@@ -3,10 +3,12 @@ package au.akanedev.simplemimics.util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
+import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import org.apache.logging.log4j.core.jmx.Server;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,6 +108,14 @@ public class PlayerDataUtils {
         });
     }
 
+    public static void sendMessageToOnePlayer(Component message, ServerPlayer Target) {
+        Target.sendSystemMessage(message);
+    }
+
+    public static void sendMessageToOnePlayer(String message, ServerPlayer Target) {
+        Target.sendSystemMessage(Component.literal(message));
+    }
+
     /**
      * Load mimic data from NBT
      */
@@ -149,5 +159,9 @@ public class PlayerDataUtils {
 
     public static MinecraftServer getServer() {
         return server;
+    }
+
+    public static PlayerData getPlayerData(ServerPlayer target) {
+        return new PlayerData(target.getUUID());
     }
 }

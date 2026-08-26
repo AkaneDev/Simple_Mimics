@@ -17,6 +17,7 @@ public class CustomConfigs {
         ConfigRegistry.register(new BooleanConfigValue("DEVMODE", false));
         ConfigRegistry.register(new IntConfigValue("MAX_TOTAL_MIMICS", 10));
         ConfigRegistry.register(new IntConfigValue("MAX_MIMICS_PER_PLAYER", 1));
+        ConfigRegistry.register(new FloatConfigValue("CHANCE_TO_TEXT", 0.003f));
     }
 }
 

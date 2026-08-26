@@ -7,6 +7,8 @@ import au.akanedev.simplemimics.entity.MimicEntity;
 import au.akanedev.simplemimics.registry.ConfigRegistry;
 import au.akanedev.simplemimics.registry.ModEntities;
 import au.akanedev.simplemimics.util.MimicLocationUtil;
+import au.akanedev.simplemimics.util.PlayerData;
+import au.akanedev.simplemimics.util.PlayerDataUtils;
 import au.akanedev.simplemimics.voice.VoiceHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -14,6 +16,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.apache.logging.log4j.core.jmx.Server;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -22,6 +25,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class MimicManager {
 
     private static MimicManager INSTANCE;
+    private static ChatManager chatManager;
 
     private final Map<UUID, MimicEntity> activeMimics = new ConcurrentHashMap<>();
     private final Map<UUID, Long> spawnTimes = new ConcurrentHashMap<>();
@@ -34,6 +38,8 @@ public class MimicManager {
 
     private static float CHANCE_TO_SPEAK =
             (float) ConfigRegistry.get("CHANCE_TO_SPEAK").get();
+    private static float CHANCE_TO_TEXT = (float) ConfigRegistry.get("CHANCE_TO_TEXT").get();
+
 
     private long lastRespawnCheck = 0;
 
@@ -52,6 +58,9 @@ public class MimicManager {
         if (INSTANCE == null) {
             INSTANCE = new MimicManager();
         }
+        if (chatManager == null) {
+            chatManager = ChatManager.getInstance();
+        }
         return INSTANCE;
     }
 
@@ -66,6 +75,7 @@ public class MimicManager {
                 (float) ConfigRegistry.get("CHANCE_TO_SPEAK").get();
         MAX_MIMICS_PER_PLAYER = (int) ConfigRegistry.get("MAX_MIMICS_PER_PLAYER").get();
         MAX_TOTAL_MIMICS = (int) ConfigRegistry.get("MAX_TOTAL_MIMICS").get();
+        CHANCE_TO_TEXT = (float) ConfigRegistry.get("CHANCE_TO_TEXT").get();
 
         if (currentTime - lastRespawnCheck > RESPAWN_INTERVAL_MS) {
             lastRespawnCheck = currentTime;
@@ -172,6 +182,7 @@ public class MimicManager {
                 targetB,
                 distance
         );
+        chatrolls(targetA, targetB);
 
         if (random.nextFloat() < CHANCE_TO_SPEAK) {
             playVoiceToTarget(
@@ -211,6 +222,7 @@ public class MimicManager {
             }
         }
 
+
         if ((boolean) ConfigRegistry
                 .get("ENABLE_ADDON_JUMPSCARES")
                 .get()) {
@@ -223,6 +235,20 @@ public class MimicManager {
                             finalTargetB
                     )
             );
+        }
+    }
+
+    private void chatrolls(
+            ServerPlayer targetA,
+            ServerPlayer targetB) {
+        if (random.nextFloat() < CHANCE_TO_TEXT) {
+            PlayerData pData = PlayerDataUtils.getPlayerData(targetA);
+            if (pData != null) {
+                Component message = chatManager.getRandomMessage(pData);
+                if (message != null) {
+                    PlayerDataUtils.sendMessageToOnePlayer(message, targetB);
+                }
+            }
         }
     }
 

@@ -28,4 +28,11 @@ public class PlayerData {
     public int hashCode() {
         return uuid.hashCode();
     }
+
+    public UUID getUUID() {
+        return uuid;
+    }
+    public Player getPlayer() {
+        return player;
+    }
 }

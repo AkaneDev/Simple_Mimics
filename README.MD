@@ -1,7 +1,31 @@
-# Simple Mimics
 This mod adds Mimics to your game. They can copy Player Nametags, Skins, and even voice clips through [Simple Voice Chat](https://modrinth.com/plugin/simple-voice-chat) (Required).
 
 It requires no additional setup and is ideal for use with friends or even playing alone.
+---
+### Confirmed Compatible with: 
+[Essential](https://www.curseforge.com/minecraft/mc-mods/essential-mod): Accepts Skin Changing via Essential mod
+
+[Create Aeronautics](https://www.curseforge.com/minecraft/mc-mods/create-aeronautics): Just doesn't cause any issues with it or sable
+
+#### Could be Compatible with
+
+Any mod that changes your skins we will not confirm this though
+
+Most mods :D
+
+---
+
+#### Known Bug:
+
+Simple Mimics version 1.2.0 has a bug in it that means mimics never spawn
+#### Fix:
+
+Update to 1.2.1
+
+---
+
+### Additional Links
+[wiki](https://github.com/AkaneDev/Simple_Mimics/wiki/SimpleMimics-Wiki)
 
 ---
 
@@ -12,11 +36,11 @@ I was bored and created this just to mess with my friends. After making it, I th
 ---
 
 ## Roadmap
-- Multiloader version to support neoforge, forge and fabric
-
+- Allow Mimics to change chest items
+  
 ---
 
-## How can I use this mod?
+## How can I use this mod? ([License](https://raw.githubusercontent.com/AkaneDev-Labs/AkaneDevLabsLicenseGym/refs/heads/main/SimpleMimicsLicense.md))
 
 You are allowed to use this mod in:
 

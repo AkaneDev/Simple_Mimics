@@ -20,7 +20,7 @@ Most mods :D
 Simple Mimics version 1.2.0 has a bug in it that means mimics never spawn
 #### Fix:
 
-Update to 1.2.1
+Update to Latest
 
 ---
 

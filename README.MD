@@ -2,7 +2,7 @@ This mod adds Mimics to your game. They can copy Player Nametags, Skins, and eve
 
 It requires no additional setup and is ideal for use with friends or even playing alone.
 ---
-### Confirmed Compatible with: 
+### Confirmed Compatible with:
 [Essential](https://www.curseforge.com/minecraft/mc-mods/essential-mod): Accepts Skin Changing via Essential mod
 
 [Create Aeronautics](https://www.curseforge.com/minecraft/mc-mods/create-aeronautics): Just doesn't cause any issues with it or sable
@@ -15,12 +15,13 @@ Most mods :D
 
 ---
 
-#### Known Bug:
+#### Known Bugs:
 
-Simple Mimics version 1.2.0 has a bug in it that means mimics never spawn
+1: Simple Mimics version 1.2.0 has a bug in it that means mimics never spawn
+2: Simple Mimics version 1.4.0 has a bug in it where you get kicked from server when sending a message due to a brain dead programming choice
 #### Fix:
 
-Update to Latest
+Update to Latest <bugs: 1, 2>
 
 ---
 
@@ -37,7 +38,7 @@ I was bored and created this just to mess with my friends. After making it, I th
 
 ## Roadmap
 - Allow Mimics to change chest items
-  
+
 ---
 
 ## How can I use this mod? ([License](https://raw.githubusercontent.com/AkaneDev-Labs/AkaneDevLabsLicenseGym/refs/heads/main/SimpleMimicsLicense.md))
@@ -65,7 +66,7 @@ For streams, please credit me, **AkaneDev**, in any way possible. This can be do
 - Mentioning the mod during the stream
 - Including the mod name and author in the stream description
 - Linking the mod page in the stream description
-- A command to show the mod name in chat, or any other chat based credit 
+- A command to show the mod name in chat, or any other chat based credit
 
 ### VODs
 

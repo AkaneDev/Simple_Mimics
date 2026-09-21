@@ -4,9 +4,11 @@ import au.akanedev.simplemimics.manager.ChatManager;
 import au.akanedev.simplemimics.manager.MimicManager;
 import au.akanedev.simplemimics.registry.FabricEntityRegistry;
 import au.akanedev.simplemimics.registry.ModEntities;
+import au.akanedev.simplemimics.util.PlayerData;
 import au.akanedev.simplemimics.voice.VoiceHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.message.v1.ServerMessageEvents;
 
 public class SimpleMimicsFabric implements ModInitializer {
     public static ChatManager chatManager;
@@ -33,5 +35,14 @@ public class SimpleMimicsFabric implements ModInitializer {
             VoiceHandler.getInstance().tick();
         });
         chatManager = ChatManager.getInstance();
+
+        ServerMessageEvents.CHAT_MESSAGE.register((message, player, params) -> {
+            PlayerData data = new PlayerData(
+                    player.getUUID(),
+                    player
+            );
+
+            chatManager.addMessage(data, message.decoratedContent());
+        });
     }
 }

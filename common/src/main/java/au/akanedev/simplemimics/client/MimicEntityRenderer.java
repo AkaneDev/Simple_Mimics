@@ -18,7 +18,7 @@ import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.client.renderer.entity.layers.SpinAttackEffectLayer;
 import net.minecraft.client.resources.DefaultPlayerSkin;
-import net.minecraft.client.resources.PlayerSkin;
+import net.minecraft.client.resources.SkinManager;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.UUID;
@@ -174,7 +174,7 @@ public class MimicEntityRenderer
                 uuidStr.isEmpty()) {
 
             return DefaultPlayerSkin
-                    .getDefaultTexture();
+                    .getDefaultSkin();
         }
 
         try {
@@ -186,7 +186,7 @@ public class MimicEntityRenderer
 
             if (level == null) {
                 return DefaultPlayerSkin
-                        .getDefaultTexture();
+                        .getDefaultSkin();
             }
 
             var player =
@@ -195,15 +195,14 @@ public class MimicEntityRenderer
             if (player instanceof AbstractClientPlayer clientPlayer) {
 
                 return clientPlayer
-                        .getSkin()
-                        .texture();
+                        .getSkinTextureLocation();
             }
 
         } catch (Exception ignored) {
         }
 
         return DefaultPlayerSkin
-                .getDefaultTexture();
+                .getDefaultSkin();
     }
 
     // =========================================================
@@ -237,13 +236,9 @@ public class MimicEntityRenderer
                     level.getPlayerByUUID(uuid);
 
             if (player instanceof AbstractClientPlayer clientPlayer) {
-
                 return clientPlayer
-                        .getSkin()
-                        .model()
-                        .equals(
-                                PlayerSkin.Model.SLIM
-                        );
+                        .getModelName()
+                        .equals("slim");
             }
 
         } catch (Exception ignored) {

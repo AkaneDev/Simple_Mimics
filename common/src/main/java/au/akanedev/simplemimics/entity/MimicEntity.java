@@ -10,6 +10,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.PathfinderMob;
@@ -430,9 +431,7 @@ public class MimicEntity extends PathfinderMob {
 
     @Override
     protected void dropCustomDeathLoot(
-            net.minecraft.server.level.ServerLevel level,
-            net.minecraft.world.damagesource.DamageSource source,
-            boolean recentlyHit
+            DamageSource damageSource, int looting, boolean hitByPlayer
     ) {
         this.spawnAtLocation(getRandomItem());
     }
@@ -600,50 +599,19 @@ public class MimicEntity extends PathfinderMob {
     // =========================
 
     @Override
-    protected void defineSynchedData(
-            SynchedEntityData.Builder builder
-    ) {
-        super.defineSynchedData(builder);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
 
-        builder.define(
-                DATA_TARGET_A,
-                ""
-        );
+        this.entityData.define(DATA_TARGET_A, "");
+        this.entityData.define(DATA_TARGET_B, "");
 
-        builder.define(
-                DATA_TARGET_B,
-                ""
-        );
+        this.entityData.define(DATA_MAIN_HAND, ItemStack.EMPTY);
+        this.entityData.define(DATA_OFF_HAND, ItemStack.EMPTY);
 
-        builder.define(
-                DATA_MAIN_HAND,
-                ItemStack.EMPTY
-        );
-
-        builder.define(
-                DATA_OFF_HAND,
-                ItemStack.EMPTY
-        );
-
-        builder.define(
-                DATA_HELMET,
-                ItemStack.EMPTY
-        );
-
-        builder.define(
-                DATA_CHESTPLATE,
-                ItemStack.EMPTY
-        );
-
-        builder.define(
-                DATA_LEGGINGS,
-                ItemStack.EMPTY
-        );
-
-        builder.define(
-                DATA_BOOTS,
-                ItemStack.EMPTY
-        );
+        this.entityData.define(DATA_HELMET, ItemStack.EMPTY);
+        this.entityData.define(DATA_CHESTPLATE, ItemStack.EMPTY);
+        this.entityData.define(DATA_LEGGINGS, ItemStack.EMPTY);
+        this.entityData.define(DATA_BOOTS, ItemStack.EMPTY);
     }
 
     // =========================

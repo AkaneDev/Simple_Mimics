@@ -19,7 +19,7 @@ public class FabricEntityRegistry implements PlatformEntityRegistry {
     public static final EntityType<MimicEntity> MIMIC =
             Registry.register(
                     BuiltInRegistries.ENTITY_TYPE,
-                    ResourceLocation.fromNamespaceAndPath(
+                    ResourceLocation.tryBuild(
                             Constants.MOD_ID,
                             "mimic"
                     ),

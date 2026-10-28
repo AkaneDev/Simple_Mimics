@@ -2,6 +2,7 @@ package au.akanedev.simplemimics.util;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -104,6 +105,7 @@ public final class MimicLocationUtil {
 
                     double obscured =
                             getObscuredRatio(
+                                    player,
                                     level,
                                     playerFeet,
                                     playerEyes,
@@ -314,6 +316,7 @@ public final class MimicLocationUtil {
         }
 
         return getObscuredRatio(
+                player,
                 level,
                 player.position(),
                 player.getEyePosition(),
@@ -322,6 +325,7 @@ public final class MimicLocationUtil {
     }
 
     private static double getObscuredRatio(
+            Entity mimic,
             Level level,
             Vec3 playerFeet,
             Vec3 playerEyes,
@@ -334,14 +338,16 @@ public final class MimicLocationUtil {
                 isPointObscured(
                         level,
                         playerFeet,
-                        target
+                        target,
+                        mimic
                 );
 
         boolean eyesBlocked =
                 isPointObscured(
                         level,
                         playerEyes,
-                        target
+                        target,
+                        mimic
                 );
 
         if (feetBlocked && eyesBlocked) {
@@ -358,7 +364,8 @@ public final class MimicLocationUtil {
     public static boolean isPointObscured(
             Level level,
             Vec3 viewpoint,
-            Vec3 target
+            Vec3 target,
+            Entity entity
     ) {
         BlockHitResult result =
                 level.clip(
@@ -367,7 +374,7 @@ public final class MimicLocationUtil {
                                 target,
                                 ClipContext.Block.COLLIDER,
                                 ClipContext.Fluid.NONE,
-                                CollisionContext.empty()
+                                entity
                         )
                 );
 

@@ -30,7 +30,7 @@ public class PlayerDataUtils {
             if (gameProfile != null && gameProfile.getProperties() != null) {
                 var textures = gameProfile.getProperties().get("textures");
                 if (textures != null && !textures.isEmpty()) {
-                    return textures.iterator().next().value();
+                    return textures.iterator().next().getValue();
                 }
             }
         } catch (Exception e) {
